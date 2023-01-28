@@ -420,13 +420,13 @@ public class PageDrawer extends PDFGraphicsStreamEngine
 
             if (isContentRendered())
             {
-                if (renderingMode.isFill())
-                {
-                    paint.setColor(getNonStrokingColor());
-                    setClip();
-                    paint.setStyle(Paint.Style.FILL);
-                    canvas.drawPath(path, paint);
-                }
+//                if (renderingMode.isFill()) imrane
+//                {
+//                    paint.setColor(getNonStrokingColor());
+//                    setClip();
+//                    paint.setStyle(Paint.Style.FILL);
+//                    canvas.drawPath(path, paint);
+//                }
 
                 if (renderingMode.isStroke())
                 {
@@ -434,6 +434,11 @@ public class PageDrawer extends PDFGraphicsStreamEngine
                     setStroke();
                     setClip();
                     paint.setStyle(Paint.Style.STROKE);
+                    canvas.drawPath(path, paint);
+                } else {
+                    paint.setColor(getNonStrokingColor());
+                    setClip();
+                    paint.setStyle(Paint.Style.FILL);
                     canvas.drawPath(path, paint);
                 }
             }
