@@ -163,7 +163,7 @@ public class PDType1CFont extends PDSimpleFont
     }
 
     @Override
-    public Path getPath(String name) throws IOException
+    public synchronized Path getPath(String name) throws IOException
     {
         // Acrobat only draws .notdef for embedded or "Standard 14" fonts, see PDFBOX-2372
         if (name.equals(".notdef") && !isEmbedded() && !isStandard14())
