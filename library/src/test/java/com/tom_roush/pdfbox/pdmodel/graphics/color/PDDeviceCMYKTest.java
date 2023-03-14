@@ -14,42 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tom_roush.pdfbox.cos;
 
-import java.util.Collections;
+package com.tom_roush.pdfbox.pdmodel.graphics.color;
+
+import java.io.IOException;
+
+import junit.framework.TestCase;
 
 /**
- * An unmodifiable COSDictionary.
+ * Test for power user creation of a custom default CMYK color space.
  *
  * @author John Hewson
  */
-final class UnmodifiableCOSDictionary extends COSDictionary
+public class PDDeviceCMYKTest extends TestCase
 {
-    /**
-     * {@inheritDoc}
-     */
-    UnmodifiableCOSDictionary(COSDictionary dict)
-    {
-        super();
-        items = Collections.unmodifiableMap(dict.items);
-    }
+   public void testCMYK() throws IOException
+   {
+      PDDeviceCMYK.INSTANCE = new CustomDeviceCMYK();
+   }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void mergeInto(COSDictionary dic)
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setNeedToBeUpdated(boolean flag)
-    {
-        throw new UnsupportedOperationException();
-    }
-
+   private static class CustomDeviceCMYK extends PDDeviceCMYK
+   {
+      protected CustomDeviceCMYK() throws IOException
+      {
+      }
+   }
 }

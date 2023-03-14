@@ -14,42 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tom_roush.pdfbox.cos;
+package com.tom_roush.pdfbox.pdmodel.graphics.color;
 
-import java.util.Collections;
+import com.tom_roush.pdfbox.cos.COSBase;
 
 /**
- * An unmodifiable COSDictionary.
+ * Special colour spaces add features or properties to an underlying colour space.
  *
  * @author John Hewson
  */
-final class UnmodifiableCOSDictionary extends COSDictionary
+public abstract class PDSpecialColorSpace extends PDColorSpace
 {
-    /**
-     * {@inheritDoc}
-     */
-    UnmodifiableCOSDictionary(COSDictionary dict)
-    {
-        super();
-        items = Collections.unmodifiableMap(dict.items);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void mergeInto(COSDictionary dic)
-    {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setNeedToBeUpdated(boolean flag)
-    {
-        throw new UnsupportedOperationException();
-    }
-
+   @Override
+   public COSBase getCOSObject()
+   {
+      return array;
+   }
 }

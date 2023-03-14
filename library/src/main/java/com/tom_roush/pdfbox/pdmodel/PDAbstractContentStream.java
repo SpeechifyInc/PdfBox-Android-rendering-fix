@@ -38,8 +38,10 @@ import com.tom_roush.pdfbox.pdmodel.documentinterchange.markedcontent.PDProperty
 import com.tom_roush.pdfbox.pdmodel.font.PDFont;
 import com.tom_roush.pdfbox.pdmodel.graphics.color.PDColor;
 import com.tom_roush.pdfbox.pdmodel.graphics.color.PDColorSpace;
+import com.tom_roush.pdfbox.pdmodel.graphics.color.PDDeviceCMYK;
 import com.tom_roush.pdfbox.pdmodel.graphics.color.PDDeviceGray;
 import com.tom_roush.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
+import com.tom_roush.pdfbox.pdmodel.graphics.color.PDICCBased;
 import com.tom_roush.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import com.tom_roush.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import com.tom_roush.pdfbox.pdmodel.graphics.image.PDInlineImage;
@@ -578,8 +580,8 @@ abstract class PDAbstractContentStream implements Closeable
     protected COSName getName(PDColorSpace colorSpace)
     {
         if (colorSpace instanceof PDDeviceGray ||
-            colorSpace instanceof PDDeviceRGB /*||
-            colorSpace instanceof PDDeviceCMYK TODO: PdfBox-Android*/)
+            colorSpace instanceof PDDeviceRGB ||
+            colorSpace instanceof PDDeviceCMYK)
         {
             return COSName.getPDFName(colorSpace.getName());
         }
@@ -615,14 +617,15 @@ abstract class PDAbstractContentStream implements Closeable
 //            writeOperand(color.getPatternName());
 //        }
 
-//        if (color.getColorSpace() instanceof PDPattern ||
+        if (
+//            color.getColorSpace() instanceof PDPattern ||
 //            color.getColorSpace() instanceof PDSeparation ||
 //            color.getColorSpace() instanceof PDDeviceN ||
-//            color.getColorSpace() instanceof PDICCBased)
-//        {
-//            writeOperator(OperatorName.STROKING_COLOR_N);
-//        }
-//        else TODO: PdfBox-Android
+            color.getColorSpace() instanceof PDICCBased)
+        {
+            writeOperator(OperatorName.STROKING_COLOR_N);
+        }
+        else
         {
             writeOperator(OperatorName.STROKING_COLOR);
         }
@@ -709,7 +712,7 @@ abstract class PDAbstractContentStream implements Closeable
         writeOperand(y);
         writeOperand(k);
         writeOperator(OperatorName.STROKING_COLOR_CMYK);
-//        setStrokingColorSpaceStack(PDDeviceCMYK.INSTANCE); TODO: PdfBox-Android
+        setStrokingColorSpaceStack(PDDeviceCMYK.INSTANCE);
     }
 
     /**
@@ -756,14 +759,15 @@ abstract class PDAbstractContentStream implements Closeable
 //            writeOperand(color.getPatternName());
 //        }
 
-//        if (color.getColorSpace() instanceof PDPattern ||
+        if (
+//            color.getColorSpace() instanceof PDPattern ||
 //            color.getColorSpace() instanceof PDSeparation ||
 //            color.getColorSpace() instanceof PDDeviceN ||
-//            color.getColorSpace() instanceof PDICCBased)
-//        {
-//            writeOperator(OperatorName.NON_STROKING_COLOR_N);
-//        }
-//        else TODO: PdfBox-Android
+            color.getColorSpace() instanceof PDICCBased)
+        {
+            writeOperator(OperatorName.NON_STROKING_COLOR_N);
+        }
+        else
         {
             writeOperator(OperatorName.NON_STROKING_COLOR);
         }
@@ -871,7 +875,7 @@ abstract class PDAbstractContentStream implements Closeable
         writeOperand(y);
         writeOperand(k);
         writeOperator(OperatorName.NON_STROKING_CMYK);
-//        setNonStrokingColorSpaceStack(PDDeviceCMYK.INSTANCE); TODO: PdfBox-Android
+        setNonStrokingColorSpaceStack(PDDeviceCMYK.INSTANCE);
     }
 
     /**
