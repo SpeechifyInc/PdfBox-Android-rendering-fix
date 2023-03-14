@@ -172,7 +172,7 @@ public final class Type1Font implements Type1CharStringReader, EncodedFont, Font
     }
 
     @Override
-    public Path getPath(String name) throws IOException
+    public synchronized Path getPath(String name) throws IOException
     {
         return getType1CharString(name).getPath();
     }

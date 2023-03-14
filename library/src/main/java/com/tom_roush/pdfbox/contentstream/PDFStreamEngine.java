@@ -727,7 +727,7 @@ public abstract class PDFStreamEngine
         }
 
         float fontSize = textState.getFontSize();
-        float horizontalScaling = textState.getHorizontalScaling() / 100f;
+        float horizontalScaling = 1F;// imrane fix issue for specific pdf textState.getHorizontalScaling() / 100f;
         float charSpacing = textState.getCharacterSpacing();
 
         // put the text state parameters into matrix form
